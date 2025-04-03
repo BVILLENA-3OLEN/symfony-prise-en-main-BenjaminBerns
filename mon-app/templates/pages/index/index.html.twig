@@ -1,0 +1,36 @@
+{% set pageTitle = 'Accueil' %}{# Créer et initialiser une variable #}
+
+{%  extends 'base.html.twig' %}
+{# Hérite de la classe base.html.twig (à la base de notre dossier templates)  #}
+
+
+{#
+{% block title %}
+    Accueil
+{% endblock %} On a récupèrer le block title pour le modifier (celui de base.html.twig) #}
+
+{# Attention, le code en dehors des accolades twig relève une erreur #}
+{% block stylesheets %}
+    {# balise link #}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}{# Permet de ne pas écraser/surcharger le base et donc de combiner à la fois celui de base et celui des scripts #}
+    {# Balise Script #}
+{% endblock %}
+
+{% block body %}
+    <p>Bienvenue</p>
+    <a href="{{ path("app_post_create_get") }}" class="btn btn-primary">➕Nouveau</a>
+    <br>
+    {% if nom is not null %}
+        <p>Bonjour {{ nom }} et bienvenue à toi</p>
+    {% endif %}
+    {% for all_post in published_posts %}
+        {{ all_post.title }}
+        <a href="{{ path('app_show_post_get', {
+            id: all_post.id
+        }) }}" class="btn btn-info">👀</a><br>
+    {% endfor %}
+{% endblock %}
+
